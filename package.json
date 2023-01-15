@@ -1,0 +1,49 @@
+{
+  "name": "anglo",
+  "version": "1.0.0",
+  "description": "Edit, minify, and pretty print your source code with ease.",
+  "main": "src/scripts/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sekedus/anglo"
+  },
+  "browserify": {
+    "transform": [
+      "brfs"
+    ]
+  },
+  "scripts": {
+    "start": "npm run build-web && cd dist && npx http-server -a localhost -p 8000 -c-1 & cd ..",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "copy-monaco": "cp -r node_modules/monaco-editor/min dist/monaco/ & cp -r node_modules/monaco-editor/min-maps dist/monaco/",
+    "build-js": "npm run copy-monaco & browserify src/scripts/index.js | uglifyjs>dist/index.js && browserify src/scripts/worker.js>dist/worker.js && browserify src/scripts/workerService> dist/workerService.js & cp -r src/scripts/color-scheme.js dist",
+    "build-css": "lessc src/css/style.less -clean-css>dist/style.css",
+    "build-misc": "cp src/*.html src/*.json dist/",
+    "build-imgs": "magick -background none resources/icon.svg -resize 16x dist/images/16.png & magick -background none resources/logo-blue.svg -resize 128x dist/images/128.png & magick -background none resources/logo-blue.svg -resize 192x dist/images/192.png & magick -background none resources/logo-blue.svg -density 512 -resize 512x dist/images/512.png & magick -background none resources/share.svg dist/images/share.png",
+    "new": "npx mkdirp dist/monaco & npx mkdirp dist/images",
+    "build-web": "rm -rf dist && npm run new && npm run build-js & npm run build-css & npm run build-misc & npm run build-imgs",
+    "build": "npm run build-web"
+  },
+  "author": "Sekedus (https://github.com/sekedus)",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^3.4.1",
+    "bootstrap.native": "github:thednp/bootstrap.native#legacy",
+    "clean-css": "^5.3.1",
+    "he": "^1.2.0",
+    "html-minifier": "^4.0.0",
+    "htmlparser": "^1.7.7",
+    "js-beautify": "^1.14.7",
+    "monaco-editor": "^0.34.1",
+    "pretty-data": "github:sekedus/pretty-data",
+    "sw-toolbox": "^3.6.0",
+    "uglify-js": "github:sekedus/UglifyJS"
+  },
+  "devDependencies": {
+    "@electron/asar": "^3.2.2",
+    "brfs": "^2.0.2",
+    "browserify": "^17.0.0",
+    "less": "^4.1.3",
+    "less-plugin-clean-css": "^1.5.1"
+  }
+}
