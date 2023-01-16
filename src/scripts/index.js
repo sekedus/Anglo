@@ -769,5 +769,10 @@ window.addEventListener('resize', editorResize);
 window.addEventListener('focus', function() {
   if (editor && !bootstrap_modal) editor.focus();
 });
+if ('onvisibilitychange' in document) {
+  document.addEventListener('visibilitychange', function() {
+    if (document.visibilityState === 'visible' && editor && !bootstrap_modal) editor.focus();
+  });
+}
 
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', themeApply);
