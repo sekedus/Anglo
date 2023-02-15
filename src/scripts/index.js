@@ -432,7 +432,7 @@ function settingsUpdate(data) {
         val = elem.checked;
       }
     }
-    settings[id].value = val;
+    if (!('notsave' in st)) settings[id].value = val;
   
     if (id in me_options && !('notsave' in st)) me_options[id] = genOptions(id, settings[id]);
 
@@ -537,7 +537,9 @@ function initSettings() {
         var format = Object.keys(formats).filter(function(x){ return formats[x].lang == el.value; });
         document.querySelector('.formats').value = format.length > 0 ? format[0] : 'Text';
       } else if (id == 'theme') {
-        monaco.editor.setTheme(el.value == 'auto' ? st.value : el.value);
+        var browser_theme = window.matchMedia('(prefers-color-scheme:dark)').matches ? 'vs-dark' : 'vs';
+        monaco.editor.setTheme(el.value == 'auto' ? browser_theme : el.value);
+        settings.theme.value = el.value == 'auto' ? el.value : editor._themeService.getColorTheme().id;
       }
   
       if (!('notsave' in st)) {
@@ -546,9 +548,11 @@ function initSettings() {
         if (el[key] != st.value) {
           setting_unsaved = true;
           pr.querySelector('label').classList.add('highlighted');
+          document.querySelector('#settings .save.btn').classList.add('pulse');
         } else {
           setting_unsaved = false;
           pr.querySelector('label').classList.remove('highlighted');
+          document.querySelector('#settings .save.btn').classList.remove('pulse');
         }
       }
     });
@@ -574,8 +578,8 @@ function themeApply(event) {
 
   DOC.classList.remove('dark', 'light');
   DOC.classList.add(user_theme);
-  settings.theme.value = user_theme == 'dark' ? 'vs-dark' : 'vs';
-  monaco.editor.setTheme(settings.theme.value);
+  monaco.editor.setTheme(user_theme == 'dark' ? 'vs-dark' : 'vs');
+  settings.theme.value = theme == 'auto' ? theme : editor._themeService.getColorTheme().id;
   localStorage.setItem('theme', theme);
 }
 

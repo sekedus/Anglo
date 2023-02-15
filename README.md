@@ -3,7 +3,7 @@
 Anglo
 </h1>
 
-<h3 align="center">Inspired and modified from <a href="https://github.com/ashkyd/alchemize"><b>Alchemize</b></a> by AshKyd</h3>
+<h3 align="center">This is a Fork of <a href="https://github.com/ashkyd/alchemize"><b>Alchemize</b></a> by AshKyd</h3>
 
 ***
 
@@ -41,7 +41,7 @@ Try the editor out on  [sekedus.github.io/anglo/](https://sekedus.github.io/angl
 
 ## Differences from [Alchemize](https://github.com/ashkyd/alchemize)
 
-* Ace --> [Monaco Editor](https://github.com/microsoft/monaco-editor)ㅤwhy? ajaxorg/ace#2869
+* Ace --> [Monaco Editor](https://github.com/microsoft/monaco-editor)
 * jQuery --> [Vanilla JS](https://stackoverflow.com/questions/20435653/what-is-vanillajs)
 * [Bootstrap 3 without jQuery](https://github.com/thednp/bootstrap.native/tree/legacy)
 

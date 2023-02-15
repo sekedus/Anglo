@@ -24,6 +24,17 @@ select,
   margin-bottom: 15px;
   border-bottom: 1px solid #e5e5e5;
 }
+.pulse {
+  animation: pulse 1s ease infinite alternate;
+}
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0px rgba(220,53,69,.5);
+  };
+  100% {
+    box-shadow:0 0 0 4px rgba(220,53,69,.5);
+  };
+}
 
 .navbar,
 .progress {
@@ -511,6 +522,7 @@ select,
   }
   .close {
     color:#ccc;
+    opacity: 1;
     &:hover, &:focus {
       color: #fff;
     }
